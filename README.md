@@ -1,15 +1,21 @@
 # MGPU Ampere Lab
 
-**Definitely experimental.** This is my research proof of concept for running
-MGPU Bridge with two RTX 3090s in Cyberpunk 2077. It includes an experimental
-adapter selector, reversible game-file management, a PowerShell game library,
-and fixture tests. It is not a validated stable setup or official RTX 3090
-DLSS 5 support. Crashes, black screens, driver resets and forced reboots occurred
-during testing; the cause remains unresolved but seems to be linked to either too high power consumption or too high GPU usage.
+**Definitely experimental.** I am experimenting with DLSS 5 neural rendering
+through MGPU Bridge in Cyberpunk 2077 using **two RTX 3090s**:
 
-The neural rendering belongs to [MGPU Bridge / Neural-coprocessor](https://github.com/maohgad-web/Neural-coprocessor).
-My contribution is selecting the game's physical GPU when both cards are the
-same model, managing the experiment, and documenting observed results.
+- **Headless GPU:** renders the game.
+- **Display-connected GPU:** handles the neural rendering and display output.
+
+This project adds a **launcher and tutorial** for that setup. My launcher selects
+the physical game GPU even when both cards are the same model, manages the game
+patch and session cleanup, and provides a GUI for configuring and running the
+experiment. The neural rendering itself is provided by
+[MGPU Bridge / Neural-coprocessor](https://github.com/maohgad-web/Neural-coprocessor).
+
+This is my research proof of concept, not a validated stable setup or official
+RTX 3090 DLSS 5 support. Crashes, black screens, driver resets and forced reboots
+occurred during testing. I suspect excessive power draw or GPU load, but the
+cause remains unresolved.
 
 ## Quick setup and use with the launcher
 
