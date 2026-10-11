@@ -11,6 +11,68 @@ The neural rendering belongs to [MGPU Bridge / Neural-coprocessor](https://githu
 My contribution is selecting the game's physical GPU when both cards are the
 same model, managing the experiment, and documenting observed results.
 
+## Quick setup and use with the launcher
+
+After the one-time downloads and build, I use the launcher to configure GPU
+roles, patch the game, check the setup and start sessions. It runs the management
+scripts for you, including restoring the managed injector state after normal
+game exit. GPU configuration can be saved from the GUI instead of editing JSON.
+
+### One-time setup
+
+1. Use Windows 10 or newer with two GPUs and a working NVIDIA driver. Connect
+   the display to the **neural GPU** and leave the **game render GPU** headless.
+   Back up Cyberpunk 2077 and your saves, close the game, and stop other GPU
+   workloads. Review the [requirements](#1-understand-the-requirements-and-limits)
+   and [dependency credits](THIRD_PARTY.md).
+2. Clone the repository and run these commands in PowerShell as a normal user.
+   The launcher does **not** download these dependencies or build the selector:
+
+   ```powershell
+   git clone https://github.com/AlexIn-Tech/mgpu-ampere-lab.git
+   Set-Location .\mgpu-ampere-lab
+   Remove-Item Env:NEURAL_GAMING_ROOT -ErrorAction SilentlyContinue
+   & .\scripts\Get-NeuralPackages.ps1
+   & .\scripts\Install-NeuralPinningToolchain.ps1
+   & .\scripts\Build-NeuralPinning.ps1
+   ```
+
+   Run the [fixture checks](#5-run-the-fixture-checks-before-patching-a-game)
+   before patching a game; the complete suite requires PowerShell 7 as well as
+   Windows PowerShell 5.1. The launcher itself uses Windows PowerShell 5.1.
+3. Double-click **`Launch-NeuralGaming.cmd`**. Open **Settings**, choose the
+   headless card as the game GPU and the display-connected card as the neural
+   GPU, then click **Save profile**. Use the physical GPU identifiers to tell
+   identical cards apart. Display values are metadata; apply the actual
+   resolution and refresh rate in Windows and the game separately.
+4. Select Cyberpunk 2077 in the library. If it is missing, use **Add game** and
+   select `Cyberpunk2077.exe` in the game's `bin\x64` directory. Click
+   **Patch game**, review the acknowledgment, then click **Check**. Resolve any
+   reported issues before launching. Patching stages the managed files disabled;
+   the launcher enables them for a neural session.
+
+### Launch and use
+
+1. Keep game frame generation off for initial testing and start with a modest
+   resolution. If reproducing my Afterburner experiment, apply **75% power limit**
+   and **77 °C temperature limit** to **both cards** manually. These settings
+   accompanied a successful session; they are not a proven stability fix.
+2. Click **Launch with neural**. A baseline run is optional. Wait for the
+   launcher's fresh runtime status to confirm the game uses the headless card
+   and the bridge uses the display card; **Open log** provides more detail.
+   Close the game if the roles do not match.
+3. Press **Ctrl+Alt+F10** in the game to activate neural rendering after binding
+   matches. Use **Home** for ReShade and **Ctrl+Alt+F7** to compare output.
+   Activation is manual; the launcher starts with `AutoArm=0`. Check actual
+   streaming/output rather than relying only on GPU utilization.
+4. Close the game normally when finished; the managed session disables the
+   injectors and restores the previous AutoArm setting. After an interrupted
+   session, close the game and click **Recover**. Use **Remove patch** to uninstall
+   the unchanged managed files. Restore Afterburner settings separately.
+
+This remains an experimental POC. For detailed setup, diagnostics and rollback,
+see the [full tutorial](#tutorial) below.
+
 ## Launcher preview
 
 ![Neural Gaming launcher showing the game library, Cyberpunk 2077 controls and example dual RTX 3090 roles](assets/launcher.png)
