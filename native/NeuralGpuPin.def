@@ -1,0 +1,3 @@
+LIBRARY NeuralGpuPin
+EXPORTS
+    DetourFinishHelperProcess @1 NONAME

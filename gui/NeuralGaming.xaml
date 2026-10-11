@@ -1,0 +1,183 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Neural Gaming — Library"
+        Width="1380" Height="980" MinWidth="1120" MinHeight="780" WindowStartupLocation="CenterScreen"
+        Background="#0B0F19" Foreground="#F0F3FC" FontFamily="Segoe UI" FontSize="13"
+        UseLayoutRounding="True" SnapsToDevicePixels="True">
+  <Window.Resources>
+    <SolidColorBrush x:Key="Muted" Color="#A5B1CA" />
+    <Style TargetType="TextBlock"><Setter Property="Foreground" Value="#F0F3FC" /></Style>
+    <Style x:Key="Caption" TargetType="TextBlock"><Setter Property="Foreground" Value="#A5B1CA" /><Setter Property="FontSize" Value="12" /></Style>
+    <Style x:Key="Section" TargetType="TextBlock"><Setter Property="Foreground" Value="#A5B1CA" /><Setter Property="FontSize" Value="11" /><Setter Property="FontWeight" Value="SemiBold" /></Style>
+    <Style TargetType="Button">
+      <Setter Property="Foreground" Value="#DCE5F9" /><Setter Property="Background" Value="#1B263D" />
+      <Setter Property="BorderBrush" Value="#34405A" /><Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Padding" Value="16,10" /><Setter Property="Cursor" Value="Hand" />
+      <Setter Property="FontWeight" Value="SemiBold" /><Setter Property="MinHeight" Value="40" />
+      <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button">
+        <Border x:Name="Chrome" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="9" Padding="{TemplateBinding Padding}">
+          <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+        </Border><ControlTemplate.Triggers>
+          <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Chrome" Property="BorderBrush" Value="#72E5DA" /></Trigger>
+          <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Chrome" Property="BorderBrush" Value="#F5F8FF" /><Setter TargetName="Chrome" Property="BorderThickness" Value="2" /></Trigger>
+          <Trigger Property="IsPressed" Value="True"><Setter TargetName="Chrome" Property="Opacity" Value="0.75" /></Trigger>
+          <Trigger Property="IsEnabled" Value="False"><Setter TargetName="Chrome" Property="Opacity" Value="0.4" /></Trigger>
+        </ControlTemplate.Triggers>
+      </ControlTemplate></Setter.Value></Setter>
+    </Style>
+    <Style x:Key="Primary" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+      <Setter Property="Background" Value="#64E5D3" /><Setter Property="Foreground" Value="#081B24" />
+      <Setter Property="BorderBrush" Value="#64E5D3" /><Setter Property="FontSize" Value="15" /><Setter Property="MinHeight" Value="50" />
+    </Style>
+    <Style x:Key="Quiet" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+      <Setter Property="Background" Value="#131C2F" /><Setter Property="FontSize" Value="12" /><Setter Property="Padding" Value="12,8" /><Setter Property="MinHeight" Value="34" />
+    </Style>
+    <Style TargetType="TextBox">
+      <Setter Property="Background" Value="#0D1423" /><Setter Property="Foreground" Value="#F0F3FC" />
+      <Setter Property="CaretBrush" Value="#64E5D3" /><Setter Property="BorderBrush" Value="#34405A" />
+      <Setter Property="Padding" Value="12,10" /><Setter Property="SelectionBrush" Value="#397B86" />
+    </Style>
+    <Style TargetType="ComboBox">
+      <Setter Property="Foreground" Value="#111B2A" /><Setter Property="Background" Value="#DDE5F5" />
+      <Setter Property="MinHeight" Value="32" /><Setter Property="Padding" Value="8,5" />
+    </Style>
+    <Style TargetType="ListBox">
+      <Setter Property="Background" Value="Transparent" /><Setter Property="BorderThickness" Value="0" />
+      <Setter Property="Foreground" Value="#F0F3FC" /><Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+    </Style>
+    <Style TargetType="ScrollBar">
+      <Setter Property="Width" Value="12" /><Setter Property="Background" Value="#101827" />
+      <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ScrollBar">
+        <Grid Background="{TemplateBinding Background}" Margin="3,0">
+          <Track x:Name="PART_Track" IsDirectionReversed="True" Orientation="{TemplateBinding Orientation}">
+            <Track.DecreaseRepeatButton><RepeatButton Command="{x:Static ScrollBar.PageUpCommand}" Opacity="0" Focusable="False" /></Track.DecreaseRepeatButton>
+            <Track.Thumb><Thumb Background="#4C637F" MinHeight="24"><Thumb.Template><ControlTemplate TargetType="Thumb"><Border Background="{TemplateBinding Background}" CornerRadius="3" /></ControlTemplate></Thumb.Template></Thumb></Track.Thumb>
+            <Track.IncreaseRepeatButton><RepeatButton Command="{x:Static ScrollBar.PageDownCommand}" Opacity="0" Focusable="False" /></Track.IncreaseRepeatButton>
+          </Track>
+        </Grid>
+      </ControlTemplate></Setter.Value></Setter>
+    </Style>
+    <Style TargetType="ListBoxItem">
+      <Setter Property="HorizontalContentAlignment" Value="Stretch" /><Setter Property="Margin" Value="0,0,0,7" />
+      <Setter Property="Padding" Value="0" /><Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ListBoxItem">
+        <Border x:Name="Row" CornerRadius="10" Background="#141D2F" BorderBrush="#24314B" BorderThickness="1" Padding="12">
+          <ContentPresenter />
+        </Border><ControlTemplate.Triggers>
+          <Trigger Property="IsSelected" Value="True"><Setter TargetName="Row" Property="Background" Value="#1F3347" /><Setter TargetName="Row" Property="BorderBrush" Value="#64E5D3" /></Trigger>
+          <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Row" Property="BorderBrush" Value="#778CAB" /></Trigger>
+          <Trigger Property="IsKeyboardFocusWithin" Value="True"><Setter TargetName="Row" Property="BorderBrush" Value="#F5F8FF" /></Trigger>
+        </ControlTemplate.Triggers>
+      </ControlTemplate></Setter.Value></Setter>
+    </Style>
+  </Window.Resources>
+  <Border Background="#0B0F19"><Grid Margin="24,20,24,18">
+    <Grid.RowDefinitions><RowDefinition Height="65" /><RowDefinition Height="*" /><RowDefinition Height="142" /></Grid.RowDefinitions>
+    <Grid Grid.Row="0">
+      <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+        <Border Width="38" Height="38" CornerRadius="11" Background="#64E5D3" Margin="0,0,13,0">
+          <TextBlock Text="N" FontSize="22" FontWeight="Bold" Foreground="#092633" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <StackPanel><TextBlock Text="NEURAL GAMING" FontSize="19" FontWeight="Bold" /><TextBlock Text="Your games. Two GPUs. One place." Style="{StaticResource Caption}" Margin="0,2,0,0" /></StackPanel>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+        <Border Background="#192C32" CornerRadius="16" Padding="13,7" Margin="0,3,14,0" VerticalAlignment="Top">
+          <TextBlock Text="EXPERIMENTAL · MANUAL ARM" FontSize="10" FontWeight="SemiBold" Foreground="#8EEBDD" />
+        </Border>
+        <Button x:Name="GuideButton" Content="Command _guide" Style="{StaticResource Quiet}" Margin="0,0,8,0" ToolTip="View the PowerShell gaming commands" />
+        <Button x:Name="SettingsButton" Content="_Settings" Style="{StaticResource Quiet}" ToolTip="Open display graphics settings and review GPU configuration" />
+      </StackPanel>
+    </Grid>
+    <Grid Grid.Row="1" Margin="0,0,0,18">
+      <Grid.ColumnDefinitions><ColumnDefinition Width="276" /><ColumnDefinition Width="22" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+      <Border Grid.Column="0" Background="#101827" BorderBrush="#24304A" BorderThickness="1" CornerRadius="15" Padding="16">
+        <Grid>
+          <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="*" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+          <Grid><TextBlock Text="Game library" FontSize="18" FontWeight="SemiBold" /><TextBlock x:Name="GameCount" Text="0 games" Style="{StaticResource Caption}" HorizontalAlignment="Right" VerticalAlignment="Center" /></Grid>
+          <Grid Grid.Row="1" Margin="0,18,0,10"><TextBox x:Name="SearchBox" ToolTip="Search games by title" AutomationProperties.Name="Search games" /><TextBlock x:Name="SearchHint" Text="Search game titles" Foreground="#92A4C0" Margin="13,10,0,10" IsHitTestVisible="False" /></Grid>
+          <ComboBox x:Name="FilterBox" Grid.Row="2" Margin="0,0,0,16" SelectedIndex="0" AutomationProperties.Name="Filter games">
+            <ComboBoxItem Content="All games" /><ComboBoxItem Content="Patched games" /><ComboBoxItem Content="Unpatched games" />
+          </ComboBox>
+          <Grid Grid.Row="3">
+            <ListBox x:Name="GameList" AutomationProperties.Name="Game library" KeyboardNavigation.TabNavigation="Continue">
+              <ListBox.ItemTemplate><DataTemplate><Grid>
+                <Grid.ColumnDefinitions><ColumnDefinition Width="41" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                <Border Width="32" Height="40" CornerRadius="7" Background="#2B3D57" VerticalAlignment="Top"><TextBlock Text="{Binding Initials}" FontSize="12" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#8EEBDD" /></Border>
+                <StackPanel Grid.Column="1"><TextBlock Text="{Binding Title}" FontWeight="SemiBold" FontSize="13" TextWrapping="Wrap" /><TextBlock Text="{Binding StatusLabel}" FontSize="11" Foreground="#A8B8D1" Margin="0,5,0,0" /><TextBlock Text="{Binding Source}" FontSize="10" Foreground="#8C9CB8" Margin="0,3,0,0" TextTrimming="CharacterEllipsis" /></StackPanel>
+              </Grid></DataTemplate></ListBox.ItemTemplate>
+            </ListBox>
+            <TextBlock x:Name="EmptyLibrary" Visibility="Collapsed" Text="No games found.&#x0a;Add a game executable to begin." TextWrapping="Wrap" Foreground="#A5B1CA" HorizontalAlignment="Center" VerticalAlignment="Center" />
+          </Grid>
+          <Grid Grid.Row="4" Margin="0,16,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+            <Button x:Name="AddButton" Content="+ _Add game" Style="{StaticResource Quiet}" Margin="0,0,6,0" /><Button x:Name="RefreshButton" Grid.Column="1" Content="_Refresh" Style="{StaticResource Quiet}" />
+          </Grid>
+        </Grid>
+      </Border>
+      <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"><Grid MinHeight="640">
+        <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+        <Border Grid.Row="0" BorderBrush="#2B3656" BorderThickness="1" CornerRadius="16" ClipToBounds="True">
+          <Border.Background><LinearGradientBrush StartPoint="0,0" EndPoint="1,1"><GradientStop Color="#1D2145" Offset="0" /><GradientStop Color="#11293B" Offset="0.7" /><GradientStop Color="#102A32" Offset="1" /></LinearGradientBrush></Border.Background>
+          <Grid>
+            <Canvas IsHitTestVisible="False" Opacity="0.38" ClipToBounds="True">
+              <Ellipse Width="480" Height="480" Canvas.Left="380" Canvas.Top="-210" Stroke="#6477A8" StrokeThickness="1" />
+              <Ellipse Width="350" Height="350" Canvas.Left="445" Canvas.Top="-145" Stroke="#6477A8" StrokeThickness="1" />
+              <Ellipse Width="220" Height="220" Canvas.Left="510" Canvas.Top="-80" Stroke="#70DBD6" StrokeThickness="1" />
+              <Line X1="440" Y1="270" X2="900" Y2="-20" Stroke="#72A3B6" StrokeThickness="1" />
+              <Line X1="470" Y1="285" X2="940" Y2="-5" Stroke="#72A3B6" StrokeThickness="1" />
+            </Canvas>
+            <Image x:Name="GameArtwork" Opacity="0.18" Stretch="UniformToFill" IsHitTestVisible="False" />
+            <Grid Margin="24,20">
+              <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+              <Grid><TextBlock Text="SELECTED GAME" Style="{StaticResource Section}" /><Border HorizontalAlignment="Right" Background="#273347" CornerRadius="13" Padding="11,5"><TextBlock x:Name="StateText" Text="Select a game" FontSize="11" Foreground="#D8E7F5" FontWeight="SemiBold" /></Border></Grid>
+              <TextBlock x:Name="GameTitle" Grid.Row="1" Text="Your next session" FontSize="31" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxHeight="84" Margin="0,12,0,6" />
+              <TextBlock x:Name="SourceText" Grid.Row="2" Text="Choose a game from your library" Foreground="#B5C6DD" Margin="0,0,0,12" />
+              <Border Grid.Row="3" Background="#111B2B" CornerRadius="8" Padding="12,10" BorderBrush="#35475D" BorderThickness="1">
+                <StackPanel><TextBlock Text="GAME EXECUTABLE" FontSize="10" Foreground="#93A7C3" Margin="0,0,0,5" /><TextBlock x:Name="ExecutableText" Text="—" Foreground="#D4DDED" TextWrapping="Wrap" FontFamily="Consolas" FontSize="11" /></StackPanel>
+              </Border>
+              <StackPanel Grid.Row="4" Margin="0,8,0,12" VerticalAlignment="Bottom">
+                <TextBlock x:Name="CompatibilityText" Text="Compatibility is checked per game" FontWeight="SemiBold" Foreground="#F1CD8D" FontSize="12" />
+                <TextBlock x:Name="BindingText" Text="Game GPU: unverified" TextWrapping="Wrap" Foreground="#E6D6AE" FontSize="12" Margin="0,8,0,0" AutomationProperties.Name="Observed game GPU" />
+                <TextBlock x:Name="RuntimeText" Text="Neural output: unverified" TextWrapping="Wrap" Foreground="#B8CADC" FontSize="12" Margin="0,5,0,0" AutomationProperties.Name="Actual neural runtime state" />
+                <TextBlock x:Name="SessionHint" Text="Launch with neural starts directly with AutoArm=0. Activate manually with Ctrl+Alt+F10 after GPU binding." TextWrapping="Wrap" Foreground="#B5C6DD" FontSize="12" LineHeight="18" Margin="0,8,0,0" />
+              </StackPanel>
+              <Grid Grid.Row="5" Margin="0,0,0,10"><Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                <Button x:Name="BaselineButton" Content="Start _without neural" Style="{StaticResource Quiet}" IsEnabled="False" Margin="0,0,8,0" ToolTip="Optional diagnostic: attempt the scoped GPU selector in this process with both managed neural injector DLLs disabled" />
+                <Button x:Name="VerifyGpuButton" Grid.Column="1" Content="_Verify game GPU" Style="{StaticResource Quiet}" IsEnabled="False" Margin="0,0,8,0" ToolTip="Optional diagnostic: observe GPU activity in a running baseline" />
+                <Button x:Name="WindowsGpuButton" Grid.Column="2" Content="Windows _graphics" Style="{StaticResource Quiet}" ToolTip="Open Windows graphics preferences; no preferences are changed automatically" />
+              </Grid>
+              <Grid Grid.Row="6"><Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                <Button x:Name="LaunchButton" Content="_Launch with neural" Style="{StaticResource Primary}" IsEnabled="False" Margin="0,0,10,0" ToolTip="Start directly with AutoArm=0 verified before launch. Activate manually with Ctrl+Alt+F10 after GPU binding. Settings and injector files are restored after exit; runtime status confirms actual output" />
+                <Button x:Name="CheckButton" Grid.Column="1" Content="_Check" Margin="0,0,10,0" IsEnabled="False" ToolTip="Check dependencies and GPU topology; runtime compatibility still requires validation" />
+                <Button x:Name="RecoverButton" Grid.Column="2" Content="Reco_ver" IsEnabled="False" ToolTip="Disable the managed injector after closing the game; does not kill the game" />
+              </Grid>
+            </Grid>
+          </Grid>
+        </Border>
+        <Grid Grid.Row="1" Margin="0,16,0,0">
+          <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="16" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+          <Border Grid.Column="0" CornerRadius="12" Background="#121C2E" BorderBrush="#273550" BorderThickness="1" Padding="18,12">
+            <StackPanel><TextBlock Text="INSTALLATION" Style="{StaticResource Section}" /><TextBlock Text="Control the patch" FontSize="16" FontWeight="SemiBold" Margin="0,7,0,5" /><TextBlock Text="Files are tracked. Removal preserves your edits." Style="{StaticResource Caption}" TextWrapping="Wrap" Margin="0,0,0,13" />
+              <StackPanel Orientation="Horizontal"><Button x:Name="PatchButton" Content="_Patch game" IsEnabled="False" Margin="0,0,8,0" /><Button x:Name="UnpatchButton" Content="_Remove patch" IsEnabled="False" /></StackPanel>
+              <StackPanel Orientation="Horizontal" Margin="0,10,0,0"><Button x:Name="OpenLogButton" Content="Open _log" Style="{StaticResource Quiet}" IsEnabled="False" Margin="0,0,8,0" /><Button x:Name="ReadmeButton" Content="Read_me" Style="{StaticResource Quiet}" /></StackPanel>
+            </StackPanel>
+          </Border>
+          <Border Grid.Column="2" CornerRadius="12" Background="#121C2E" BorderBrush="#273550" BorderThickness="1" Padding="18,12">
+            <StackPanel><TextBlock Text="DESIRED GPU ROLES" Style="{StaticResource Section}" /><TextBlock x:Name="DisplayText" Text="Reading display…" FontSize="18" FontWeight="SemiBold" Margin="0,7,0,8" />
+              <ItemsControl x:Name="GpuList"><ItemsControl.ItemTemplate><DataTemplate><TextBlock Text="{Binding Summary}" Foreground="#B9C8DD" FontSize="11" TextWrapping="Wrap" Margin="0,0,0,5" /></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+              <TextBlock x:Name="PinningText" Text="Scoped GPU selector: unverified" Foreground="#E6D6AE" FontSize="11" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" LineHeight="16" MaxHeight="48" Margin="0,3,0,0" AutomationProperties.Name="Experimental scoped GPU selector readiness" />
+              <StackPanel Orientation="Horizontal" Margin="0,8,0,0"><Button x:Name="OpenConfigButton" Content="GPU _config" Style="{StaticResource Quiet}" Margin="0,0,8,0" /><Button x:Name="FreeGpuButton" Content="_Free GPU memory" Style="{StaticResource Quiet}" ToolTip="Explicitly stop local AI workloads through Stop-LocalAIAll" /></StackPanel>
+            </StackPanel>
+          </Border>
+        </Grid>
+      </Grid></ScrollViewer>
+    </Grid>
+    <Border Grid.Row="2" CornerRadius="12" Background="#0F1726" BorderBrush="#263249" BorderThickness="1" Padding="16,12">
+      <Grid><Grid.RowDefinitions><RowDefinition Height="25" /><RowDefinition Height="*" /></Grid.RowDefinitions>
+        <Grid><TextBlock Text="ACTIVITY" Style="{StaticResource Section}" /><TextBlock x:Name="OperationText" Text="Ready · actions start only when you choose them" Foreground="#9FB2CD" FontSize="11" HorizontalAlignment="Right" /></Grid>
+        <ListBox x:Name="ActivityList" Grid.Row="1" FontFamily="Consolas" FontSize="11" Focusable="True" AutomationProperties.Name="Activity log">
+          <ListBox.ItemContainerStyle><Style TargetType="ListBoxItem"><Setter Property="Foreground" Value="#BDCEE1" /><Setter Property="Padding" Value="0,3" /><Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ListBoxItem"><ContentPresenter /></ControlTemplate></Setter.Value></Setter></Style></ListBox.ItemContainerStyle>
+          <ListBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding}" TextWrapping="Wrap" Foreground="#BDCEE1" /></DataTemplate></ListBox.ItemTemplate>
+        </ListBox>
+      </Grid>
+    </Border>
+  </Grid></Border>
+</Window>

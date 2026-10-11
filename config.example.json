@@ -1,0 +1,5 @@
+{
+  "renderUuid": "GPU-HEADLESS-RENDER-ADAPTER-UUID",
+  "neuralUuid": "GPU-DISPLAY-NEURAL-ADAPTER-UUID",
+  "display": { "Width": 3440, "Height": 1440, "RefreshHz": 100 }
+}

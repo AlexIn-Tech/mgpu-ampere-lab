@@ -1,0 +1,3 @@
+LIBRARY sl.interposer.dll
+EXPORTS
+    D3D12CreateDevice
